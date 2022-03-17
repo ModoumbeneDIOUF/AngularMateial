@@ -1,0 +1,41 @@
+{
+  "productList": [
+    {
+      "productName": "test 1",
+      "category": "Vegetates",
+      "freshness": "Brand new",
+      "price": 100,
+      "comment": "",
+      "date": "2022-03-09T00:00:00.000Z",
+      "id": 4
+    },
+    {
+      "productName": "test 2",
+      "category": "Vegetates",
+      "freshness": "Brand new",
+      "price": 100,
+      "comment": "",
+      "date": "2022-03-09T00:00:00.000Z",
+      "id": 5
+    },
+    {
+      "productName": "test",
+      "category": "Fruits",
+      "freshness": "Refurbished",
+      "price": 12,
+      "comment": "23",
+      "date": "2022-03-10T00:00:00.000Z",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
