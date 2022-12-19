@@ -1,0 +1,176 @@
+  <!-- ======== main-wrapper start =========== -->
+  <main class="main-wrapper">
+
+    <section class="section">
+      <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="title mb-30">
+                <h2>Categories</h2>
+              </div>
+            </div>
+
+          </div>
+          <!-- end row -->
+        </div>
+
+
+        <!-- End Row -->
+
+        <!-- End Row -->
+        <div class="row">
+
+          <!-- End Col -->
+          <div class="col-lg-12">
+            <div class="card-style mb-30">
+              <div
+                class="title d-flex flex-wrap justify-content-between align-items-center"
+              >
+                <div class="left">
+                  <h6 class="text-medium mb-30">Toutes les categories</h6>
+                </div>
+
+              </div>
+
+              <div *ngIf = "categories != ''  " class="table-responsive">
+                <table class="table top-selling-table">
+                  <thead>
+                    <tr>
+
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium"></h6>
+                      </th>
+
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">Libelle</h6>
+                      </th>
+
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">Action</h6>
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor = " let categorie of categories.categories; let i = index">
+                      <td>
+                        <p class="text-sm"> {{i + 1}} </p>
+                      </td>
+                      <td>
+                      <p class="text-sm"> {{categorie.libelle}} </p>
+                      </td>
+
+                      <td>
+                        <div class="action ">
+                          <button
+                            class="more-btn ml-10 dropdown-toggle"
+                            id="moreAction1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <i class="lni lni-more-alt"></i>
+                          </button>
+                          <ul
+                            class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="moreAction1"
+                          >
+                            <li class="dropdown-item">
+                              <a (click)="open(mymodal,categorie.idCat)" class="text-gray"  style="text-decoration: none;">Modifier</a>
+                            </li>
+                            <li class="dropdown-item">
+                              <a (click)="deleteCat(categorie.idCat)" class="text-gray"  style="text-decoration: none;">Supprimer</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- End Table -->
+
+                <ng-template #mymodal let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form #catForm="ngForm"  (ngSubmit)="updateCategory()">
+                          <div class="card-style mb-30">
+                            <h6 class="mb-25"></h6>
+                            <div class="input-style-1">
+                              <label>libelle</label>
+                              <input type="text" name="libelle" id="libelle" (keyup)="categorieLong(catLibelle.value)" required
+                              [class.is-invalid]="categorieError || (catLibelle.invalid && catLibelle.touched)" [class.is-valid]="catLibelle.valid"
+                              #catLibelle="ngModel" [(ngModel)]="libelle" tabindex="2" class="form-control" placeholder="libelle">
+                            </div>
+
+                            <div *ngIf="categorieError || (catLibelle.touched && catLibelle.invalid)">
+                              <small class="text-danger" [class.d-none]="catLibelle.untouched || catLibelle.valid"> Veuillez remplir ce champ</small>
+                              <small class="text-danger" [class.d-none]="!categorieError || catLibelle.value == ''"> Minumum 6 caractéres </small>
+                           </div>
+                          </div>
+
+                          <input
+                          [disabled]="catForm.form.invalid || categorieError"
+                          class = "form-control main-btn primary-btn btn-hover w-100 text-center"
+                          type="submit"
+                          value="Modifier"
+                        />
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+                      </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <!-- End Col -->
+        </div>
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 order-last order-md-first">
+            <div class="copyright text-center text-md-start">
+              <p class="text-sm">
+                Designed and Developed by
+                <a
+                  href="https://plainadmin.com/"
+                  rel="nofollow"
+                  target="_blank"
+                >
+                  PlainAdmin
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- end col-->
+          <div class="col-md-6">
+            <div
+              class="terms d-flex justify-content-center justify-content-md-end"
+            >
+              <a href="#0" class="text-sm">Term & Conditions</a>
+              <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </footer>
+    <!-- ========== footer end =========== -->
+  </main>
+  <!-- ======== main-wrapper end =========== -->

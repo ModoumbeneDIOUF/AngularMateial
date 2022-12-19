@@ -1,0 +1,71 @@
+<html>
+ <head>
+ </head>
+  <body>
+
+      <div class="container col-md-4">
+
+                <div class=" row mt-3">
+
+                      <form #loginForm="ngForm"  (ngSubmit)="loginMy()" >
+
+                        <div>
+
+                          <label for="email">Email</label>
+                           <span class="text-danger">*</span>
+                            <input type="email" name="email"  (keyup)="emailVerif(email.value)" required
+                               [class.is-invalid]="emailError || (email.invalid && email.touched)" [class.is-valid]="email.valid "
+                               #email="ngModel" [(ngModel)]="user.email" tabindex="2" class="form-control" placeholder="Email">
+
+                              <div *ngIf="emailError || (email.touched && email.invalid)">
+                                  <small class="text-danger" [class.d-none]="email.untouched || email.valid"> Veuillez remplir ce champ</small>
+                                  <small class="text-danger" [class.d-none]="!emailError || email.value == ''"> Veuillez saisir l'email au bon format</small>
+                              </div>
+                        </div>
+                        <div >
+                          <label for="password">Password</label>
+                           <span class="text-danger">*</span>
+                          <input type="password" name="password" (keyup)="passwordLong(password.value)" required
+                          [class.is-invalid]="passError || (password.invalid && password.touched)" [class.is-valid]="password.valid"
+                          #password="ngModel" [(ngModel)]="user.password" tabindex="2" class="form-control">
+
+
+                            <div *ngIf="passError || (password.touched && password.invalid)">
+                              <small class="text-danger" [class.d-none]="password.untouched || password.valid"> Veuillez remplir ce champ</small>
+                              <small class="text-danger" [class.d-none]="!passError || password.value == ''"> Minimun 6 caractéres</small>
+                          </div>
+                        </div>
+
+                        <div >
+                          <label for="password">Password Confirmation</label>
+                           <span class="text-danger">*</span>
+                          <input type="password" name="passwordConfirmation" (keyup)="passwordToConfirm(password.value, passwordConfirmation.value)" required
+                          [class.is-invalid]="passConfirmError || (passwordConfirmation.invalid && passwordConfirmation.touched)" [class.is-valid]="passwordConfirmation.valid"
+                          #passwordConfirmation="ngModel" [(ngModel)]="user.passwordConfirmation"  class="form-control">
+
+
+                            <div *ngIf="passConfirmError || (passwordConfirmation.touched && passwordConfirmation.invalid)">
+                              <small class="text-danger" [class.d-none]="passwordConfirmation.untouched || passwordConfirmation.valid"> Veuillez remplir ce champ</small>
+                              <small class="text-danger" [class.d-none]="!passConfirmError || passwordConfirmation.value == ''"> Les deux mots de passe ne sont pas conforment</small>
+                          </div>
+                        </div>
+
+
+                        <div  class="mt-3">
+
+                            <div >
+                              <input [disabled]="loginForm.form.invalid || emailError || passError || passConfirmError" type="submit" tabindex="4" class="form-control btn btn-success" value="Valider">
+
+                          </div>
+                        </div>
+
+                      </form>
+
+                     </div>
+                  </div>
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,42 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+
+  <p>
+    <label for="firstname">First Name</label>
+    <input type="text" name="firstname" ngModel>
+  </p>
+
+  <p>
+    <label for="lastname">Last Name</label>
+    <input type="text" name="lastname" ngModel>
+  </p>
+
+  <p>
+    <label for="email">Email </label>
+    <input type="text" name="email" ngModel>
+  </p>
+
+  <p>
+    <label for="gender">Gender</label>
+    <input type="radio" value="male" name="gender" ngModel> Male
+    <input type="radio" value="female" name="gender" ngModel> Female
+  </p>
+
+  <p>
+    <label for="isMarried">Married</label>
+    <input type="checkbox" name="isMarried" ngModel>
+  </p>
+
+  <select name="city" ngModel>
+    <option [ngValue]="c.id" *ngFor="let c of listCity">
+      {{c.name}}
+    </option>
+  </select>
+
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+
+</form>
+
+<pre>Valeur : {{userForm.value | json }} </pre>
+

@@ -1,0 +1,29 @@
+<div class="container" style="margin-top: 10%;">
+
+  <div class="text-center" style="margin-bottom: 2%;">
+    {{ title }}
+  </div>
+
+<table class="table table-bordered border-primary">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Titre</th>
+    <th scope="col">Description</th>
+    <th scope="col">Acteur</th>
+    <th scope="col">date</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let film of films  index as i">
+    <th >{{i+1}}</th>
+    <th> {{ film.titre }} </th>
+    <th> {{ film.desription }} </th>
+    <th> {{ film.principal }} </th>
+    <th> {{ film.date }} </th>
+  </tr>
+
+</tbody>
+</table>
+
+</div>

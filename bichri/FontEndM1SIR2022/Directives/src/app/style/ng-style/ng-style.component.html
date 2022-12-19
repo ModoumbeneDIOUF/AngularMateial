@@ -1,0 +1,8 @@
+1<input [(ngModel)]="color" />
+
+<div [ngStyle]="{'color': color.length <=5 ? 'red' : 'green'}">Changer la couleur</div>
+
+2<div [ngStyle]="{'background-color': status === false ? 'red' : 'blue'  }"> Test if couleur</div>
+
+3<div [ngStyle]="styleClass">size & couleur</div>
+

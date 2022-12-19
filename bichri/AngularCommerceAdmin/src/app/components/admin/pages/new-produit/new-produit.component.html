@@ -1,0 +1,165 @@
+
+
+
+    <!-- ======== main-wrapper start =========== -->
+    <main class="main-wrapper">
+      <!-- ========== header start ========== -->
+
+      <!-- ========== header end ========== -->
+
+      <!-- ========== tab components start ========== -->
+      <section class="tab-components">
+        <div class="container-fluid">
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Nouveau produit</h2>
+                </div>
+              </div>
+              <!-- end col -->
+
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== title-wrapper end ========== -->
+
+          <!-- ========== form-elements-wrapper start ========== -->
+          <div class="form-elements-wrapper">
+            <div class="row">
+              <div class="col-lg-12">
+                <!-- input style start -->
+                  <div *ngIf="messageErreur" class="alert alert-danger text-danger text-center"[class.d-none]="messageErreur == ''" role="alert">
+                    {{messageErreur}}
+                </div>
+                  <div *ngIf="save" class="alert alert-success text-success text-center"[class.d-none]="saveMessage == ''" role="alert">
+                    {{saveMessage}}
+                </div>
+                <form  #addProductForm="ngForm" (ngSubmit)="submitProduct()" enctype = "multipart/form-data">
+                  <div class="card-style mb-30">
+                    <h6 class="mb-25"></h6>
+
+                    <div class="input-style-1">
+                      <label>Categorie du produit</label>
+
+                      <select class="col-lg-12 input-style-1"  #idCat="ngModel" [(ngModel)]="product.idCat" name="idCat">
+                          <option class="form-control" *ngFor="let cat of categories.categories" [value]="cat.idCat"  >{{cat.libelle}}</option>
+                      </select>
+
+                       <div *ngIf=" idCat.touched && idCat.invalid ">
+                            <small class="text-danger" [class.d-none]="idCat.untouched || idCat.valid || save"> Veuillez remplir ce champ</small>
+
+                      </div>
+                    </div>
+
+                    <div class="input-style-1">
+                      <label>Libelle du produit</label>
+                      <input type="productName" name="productName" id="productName" (keyup)="productNameLong(productName.value)" required
+                                 [class.is-invalid]=" productNameError || (productName.invalid && productName.touched && !save)" [class.is-valid]="productName.valid"
+                                 #productName="ngModel" [(ngModel)]="product.productName" tabindex="2" class="form-control" placeholder="productName">
+
+                       <div *ngIf=" productNameError || (productName.touched && productName.invalid )">
+                            <small class="text-danger" [class.d-none]="productName.untouched || productName.valid || save"> Veuillez remplir ce champ</small>
+                            <small class="text-danger" [class.d-none]="!productNameError || productName.value == ''"> Minimum 6 caractéres</small>
+                      </div>
+                    </div>
+
+                    <div class="input-style-1">
+                      <label>Description du produit</label>
+                      <input type="text" name="productDesc" id="productDesc"  required (keyup)="descLong(productDesc.value)"
+                      [class.is-invalid]="descError || (productDesc.invalid && productDesc.touched && !save)" [class.is-valid]="productDesc.valid"
+                      #productDesc="ngModel" [(ngModel)]="product.productDesc" tabindex="2" class="form-control" placeholder="productDesc">
+
+                      <small class="text-danger" [class.d-none]="productDesc.untouched || productDesc.valid || save"> Veuillez remplir ce champ </small>
+                      <small class="text-danger" [class.d-none]="!descError || productDesc.value == ''"> Minimum 10 caractéres</small>
+                    </div>
+
+                    <div class="input-style-1">
+                      <label>Prix du produit</label>
+                      <input type="number" name="productPrice" id="productPrice"  required (keyup)="priceVerify(productPrice.value)"
+                            [class.is-invalid]="priceError || priceMinError || (productPrice.invalid && productPrice.touched && !save)" [class.is-valid]="productPrice.valid"
+                            #productPrice="ngModel" [(ngModel)]="product.productPrice" tabindex="2" class="form-control" placeholder="productPrice">
+
+                            <small class="text-danger" [class.d-none]="productPrice.untouched || productPrice.valid || save"> Veuillez remplir ce champ </small>
+                            <small class="text-danger" [class.d-none]="!priceError"> Le prix doit etre positif</small>
+                            <small class="text-danger" [class.d-none]="!priceMinError"> Le prix minimum est 100Fr</small>
+                    </div>
+
+                    <div class="input-style-1">
+                      <label>Quantity du produit</label>
+                      <input type="number" name="productQty" id="productQty" required (keyup)="qtyVerify(productQty.value)"
+                            [class.is-invalid]="qtyError || (productQty.invalid && productQty.touched && !save)" [class.is-valid]="productQty.valid"
+                            #productQty="ngModel" [(ngModel)]="product.productQty" tabindex="2" class="form-control" placeholder="productQty">
+
+                            <small class="text-danger" [class.d-none]="productQty.untouched || productQty.valid || save"> Veuillez remplir ce champ </small>
+                            <small class="text-danger" [class.d-none]="!qtyError"> La quantité doit etre positive</small>
+                    </div>
+
+                    <div class="input-style-1">
+                      <label>Image du produit</label>
+                      <input type="file" (change)="onFileChange($event)" name="fileName" id="fileName" required
+                      [class.is-invalid]="fileName.invalid && fileName.touched && !save" [class.is-valid]="fileName.valid"
+                      #fileName="ngModel" [(ngModel)]="product.fileName" tabindex="2" class="form-control" placeholder="fileName">
+
+                      <small class="text-danger" [class.d-none]="fileName.untouched || fileName.valid || save"> Veuillez selectionner une image </small>
+                    </div>
+                    <!-- end input -->
+                  </div>
+
+                  <input [disabled]="addProductForm.form.invalid || productNameError || descError || qtyError || priceError || priceMinError " type="submit" tabindex="4" class="form-control btn btn-success" value="Add Product">
+
+                </form>
+                <!-- end card -->
+
+              </div>
+              <!-- end col -->
+
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== form-elements-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== tab components end ========== -->
+
+      <!-- ========== footer start =========== -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 order-last order-md-first">
+              <div class="copyright text-center text-md-start">
+                <p class="text-sm">
+                  Designed and Developed by
+                  <a
+                    href="https://plainadmin.com/"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    PlainAdmin
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- end col-->
+            <div class="col-md-6">
+              <div
+                class="terms d-flex justify-content-center justify-content-md-end"
+              >
+                <a href="#0" class="text-sm">Term & Conditions</a>
+                <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end container -->
+      </footer>
+      <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+

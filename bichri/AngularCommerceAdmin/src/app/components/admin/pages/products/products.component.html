@@ -1,0 +1,233 @@
+  <!-- ======== main-wrapper start =========== -->
+  <main class="main-wrapper">
+
+    <section class="section">
+      <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="title mb-30">
+                <h2>Produits</h2>
+              </div>
+            </div>
+
+          </div>
+          <!-- end row -->
+        </div>
+
+        <!-- End Row -->
+
+
+
+        <!-- End Row -->
+        <div class="row">
+
+          <!-- End Col -->
+          <div class="col-lg-12">
+            <div class="card-style mb-30">
+              <!-- End Title -->
+              <div  *ngIf = "products != '' " class="table-responsive">
+                <table class="table top-selling-table">
+                  <thead>
+                    <tr>
+                      <th>
+                        <h6 class="text-sm text-medium">Products</h6>
+                      </th>
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">
+                          Libelle du produit
+                        </h6>
+                      </th>
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">
+                          Quantité
+                        </h6>
+                      </th>
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">
+                          Prix
+                        </h6>
+                      </th>
+                      <th class="min-width">
+                        <h6 class="text-sm text-medium">
+                          Status
+                        </h6>
+                      </th>
+                      <th>
+                        <h6 class="text-sm text-medium text-end">
+                          Actions <i class="lni lni-arrows-vertical"></i>
+                        </h6>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor = " let product of products.products;">
+                      <td>
+                        <div class="product">
+                          <div class="image">
+                            <img
+                              [src]="imageUri+'/'+product.fileName"
+                              alt="img"
+                            />
+                          </div>
+
+                        </div>
+                      </td>
+                      <td>
+                        <p class="text-sm">{{product.productName}} </p>
+                      </td>
+                      <td>
+                        <p class="text-sm">{{product.productQty}}</p>
+                      </td>
+                      <td>
+                        <p class="text-sm">{{product.productPrice}}</p>
+                      </td>
+                      <td>
+                        <div *ngIf="product.status == 'En stock'">
+                          <span class="status-btn success-btn">{{product.status}}</span>
+                        </div>
+                        <div *ngIf="product.status == 'Terminer'">
+                          <span class="status-btn close-btn">{{product.status}}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="action justify-content-end">
+
+                          <button
+                            class="more-btn ml-10 dropdown-toggle"
+                            id="moreAction1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <i class="lni lni-more-alt"></i>
+                          </button>
+                          <ul
+                            class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="moreAction1"
+                          >
+                            <li class="dropdown-item">
+                              <a (click)="open(mymodal,product.id)" class="text-gray" style="text-decoration: none;">Modifier</a>
+                            </li>
+                            <li class="dropdown-item">
+                              <a (click)="deleteProd(product.id)" class="text-gray" style="text-decoration: none;">Supprimer</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+                <!-- End Table -->
+
+                <ng-template #mymodal let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form #ProdForm="ngForm" (ngSubmit)="updateProduct()">
+
+                      <div class="card-style mb-30">
+                        <h6 class="mb-25"></h6>
+                        <div class="input-style-1">
+                          <label>Quantité</label>
+                          <input type="text" name="productQty" id="productQty" required
+                          [class.is-invalid]="qtyError || (qty.invalid && qty.touched)" [class.is-valid]="qty.valid"
+                          #qty="ngModel" [(ngModel)]="productQty" tabindex="2" class="form-control" placeholder="productQty">
+                        </div>
+
+                        <div *ngIf="qtyError || (qty.touched && qty.invalid)">
+                          <small class="text-danger" [class.d-none]="qty.untouched || qty.valid"> Veuillez remplir ce champ</small>
+                          <small class="text-danger" [class.d-none]="!qtyError || qty.value == ''"> Minumum 6 caractéres </small>
+                       </div>
+
+                       <div class="input-style-1">
+                        <label>Prix</label>
+                        <input type="text" name="productPrice" id="productPrice" required
+                        [class.is-invalid]="priceError || (price.invalid && price.touched)" [class.is-valid]="price.valid"
+                        #price="ngModel" [(ngModel)]="productPrice" tabindex="2" class="form-control" placeholder="productprice">
+                      </div>
+
+                      <div *ngIf="priceError || (price.touched && price.invalid)">
+                        <small class="text-danger" [class.d-none]="price.untouched || price.valid"> Veuillez remplir ce champ</small>
+                        <small class="text-danger" [class.d-none]="!priceError || price.value == ''"> Minumum 6 caractéres </small>
+                       </div>
+
+                       <div class="input-style-1">
+                        <label>Status</label>
+                        <input type="text" name="status" id="status" required
+                        [class.is-invalid]="statusError || (prodStatus.invalid && prodStatus.touched)" [class.is-valid]="prodStatus.valid"
+                        #prodStatus="ngModel" [(ngModel)]="status" tabindex="2" class="form-control" placeholder="status">
+                      </div>
+
+                      <div *ngIf="statusError || (prodStatus.touched && prodStatus.invalid)">
+                        <small class="text-danger" [class.d-none]="prodStatus.untouched || prodStatus.valid"> Veuillez remplir ce champ</small>
+                        <small class="text-danger" [class.d-none]="!statusError || prodStatus.value == ''"> Minumum 6 caractéres </small>
+                       </div>
+
+                      </div>
+
+
+                      <input
+                      [disabled]="ProdForm.form.invalid || qtyError || priceError || statusError"
+                      class = "form-control main-btn primary-btn btn-hover w-100 text-center"
+                      type="submit"
+                      value="Modifier"
+                    />
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+                  </div>
+            </ng-template>
+              </div>
+            </div>
+          </div>
+          <!-- End Col -->
+        </div>
+        <!-- End Row -->
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 order-last order-md-first">
+            <div class="copyright text-center text-md-start">
+              <p class="text-sm">
+                Designed and Developed by
+                <a
+                  href="https://plainadmin.com/"
+                  rel="nofollow"
+                  target="_blank"
+                >
+                  PlainAdmin
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- end col-->
+          <div class="col-md-6">
+            <div
+              class="terms d-flex justify-content-center justify-content-md-end"
+            >
+              <a href="#0" class="text-sm">Term & Conditions</a>
+              <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </footer>
+    <!-- ========== footer end =========== -->
+  </main>
+  <!-- ======== main-wrapper end =========== -->

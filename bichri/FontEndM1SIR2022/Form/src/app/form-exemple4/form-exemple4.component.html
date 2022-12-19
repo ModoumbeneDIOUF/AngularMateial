@@ -1,0 +1,128 @@
+<div class="container col-md-6">
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" >
+
+    <p>
+      <label>First Name </label>
+      <input class="form-control" type="text" name="firstname" formControlName="firstname">
+    </p>
+
+    <div
+      *ngIf="firstname.invalid && (firstname.dirty ||firstname.touched)">
+      <div [hidden]="!firstname.errors?.['required']">
+       <p class="text-danger"> First Name is required</p>
+      </div>
+      <div [hidden]="!firstname.errors?.['minlength']">
+        <p class="text-danger"> Min Length is 10</p>
+      </div>
+    </div>
+
+    <p>
+      <label >Last Name </label>
+      <input class="form-control" type="text" name="lastname" formControlName="lastname">
+    </p>
+
+    <div *ngIf="lastname.invalid && (lastname.dirty ||lastname.touched)">
+      <div [hidden]="!lastname.errors?.['pattern']">
+       <p class="text-danger"> Only characters are allowed</p>
+      </div>
+      <div [hidden]="!lastname.errors?.['maxLength']">
+        <p class="text-danger"> Max length allowed is {{lastname?.errors?.['maxlength']?.requiredLength}}</p>
+      </div>
+      <div [hidden]="!lastname.errors?.['required']">
+       <p class="text-danger"> Last Name is required</p>
+      </div>
+    </div>
+
+    <p>
+      <label>Email </label>
+      <input class="form-control" type="text" name="email" formControlName="email">
+    </p>
+    <div *ngIf="email.invalid && (email.dirty ||email.touched)">
+      <div  [hidden]="!email.errors?.['required']">
+        <p class="text-danger"> email is required</p>
+      </div>
+      <div [hidden]="!email.errors?.['email']">
+        <p class="text-danger"> invalid email id</p>
+
+      </div>
+    </div>
+
+    <p >
+
+      <input class="form-check-input"  type="radio" value="male" name="gender" formControlName="gender"> Male
+      <input class="form-check-input"  type="radio" value="female" name="gender" formControlName="gender"> Female
+    </p>
+    <div *ngIf="gender?.invalid && (gender?.dirty ||gender?.touched)">
+      <div [hidden]="!gender.errors?.['required']">
+       <p class="text-danger"> gender is required</p>
+      </div>
+    </div>
+
+    <p>
+      <label>Married </label>
+      <input class="form-check-input"   type="checkbox" name="isMarried" formControlName="isMarried">
+    </p>
+
+
+    <p>
+      <label >country </label>
+      <select class="form-control" name="country" formControlName="country">
+        <option [ngValue]="c.id" *ngFor="let c of countryList">
+          {{c.name}}
+        </option>
+      </select>
+    </p>
+    <div *ngIf="country.invalid && (country.dirty ||country.touched)">
+      <div [hidden]="!country.errors?.['required']">
+       <p class="text-danger"> country is required</p>
+      </div>
+    </div>
+
+    <div formGroupName="address">
+
+      <div >
+        <label>City</label>
+        <input type="text" class="form-control" name="city" formControlName="city">
+      </div>
+      <div *ngIf="city.invalid && (city.dirty ||city.touched)">
+        <div [hidden]="!city.errors?.['required']">
+          <p class="text-danger">city is required</p>
+        </div>
+      </div>
+
+
+      <div >
+        <label for="street">Street</label>
+        <input type="text" class="form-control" name="street" formControlName="street">
+      </div>
+      <div *ngIf="street.invalid && (street.dirty ||street.touched)">
+        <div [hidden]="!street.errors?.['required']">
+         <p class="text-danger"> street is required</p>
+        </div>
+      </div>
+
+      <div >
+        <label for="pincode">Pin Code</label>
+        <input type="text" class="form-control" name="pincode" formControlName="pincode">
+      </div>
+      <div *ngIf="pincode.invalid && (pincode.dirty ||pincode.touched)">
+        <div [hidden]="!pincode.errors?.['required']">
+        <p class="text-danger">  pincode is required</p>
+        </div>
+        <div [hidden]="!pincode.errors?.['maxLength']">
+          <p class="text-danger"> Min Length is 4</p>
+        </div>
+
+
+      </div>
+
+    </div>
+    <p>
+      <button class="btn btn-primary" type="submit" [disabled]="contactForm.invalid">Submit</button>
+    </p>
+
+  </form>
+
+  </div>
+

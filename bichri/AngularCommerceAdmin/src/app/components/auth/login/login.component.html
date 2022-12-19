@@ -1,0 +1,191 @@
+<body>
+  <!-- ======== sidebar-nav start =========== -->
+
+  <div class="overlay"></div>
+  <!-- ======== sidebar-nav end =========== -->
+
+  <!-- ======== main-wrapper start =========== -->
+  <main class="main-wrapper">
+
+    <section class="signin-section">
+      <div class="container-fluid">
+
+        <div class="row g-0 auth-row">
+          <div class="col-lg-6">
+            <div class="auth-cover-wrapper bg-primary-100">
+              <div class="auth-cover">
+                <div class="title text-center">
+                  <h1 class="text-primary mb-10">Welcome Back</h1>
+                  <p class="text-medium">
+                    Sign in to your Existing account to continue
+                  </p>
+                </div>
+                <div class="cover-image">
+                  <img src="assets/images/auth/signin-image.svg" alt="" />
+                </div>
+                <div class="shape-image">
+                  <img src="assets/images/auth/shape.svg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end col -->
+          <div class="col-lg-6">
+            <div class="signin-wrapper">
+              <div class="form-wrapper">
+                <h6 class="mb-15">Sign In Form</h6>
+                <p class="text-sm mb-25">
+                  Start creating the best possible user experience for you
+                  customers.
+                </p>
+                <form #loginForm="ngForm"  (ngSubmit)="loginUser()">
+                  <div class="row">
+                    <div class="col-12">
+
+                      <div class="alert alert-danger text-danger text-center"[class.d-none]="messageErreur == ''" role="alert">
+                        {{messageErreur}}
+                      </div>
+
+                      <div class="input-style-1">
+                        <label>Email</label>
+
+                             <input type="email" name="email" id="email" (keyup)="emailVerif(email.value)" required
+                               [class.is-invalid]="emailError || (email.invalid && email.touched)" [class.is-valid]="email.valid"
+                               #email="ngModel" [(ngModel)]="user.email" tabindex="2" class="form-control" placeholder="Email">
+
+                               <div *ngIf="emailError || (email.touched && email.invalid)">
+                                  <small class="text-danger" [class.d-none]="email.untouched || email.valid"> Veuillez remplir ce champ</small>
+                                  <small class="text-danger" [class.d-none]="!emailError || email.value == ''"> Veuillez saisir l'email au bon format</small>
+                               </div>
+
+                      </div>
+
+                    </div>
+                    <!-- end col -->
+                    <div class="col-12">
+                      <div class="input-style-1">
+                        <label>Password</label>
+                            <input type="password" name="password" id="password" (keyup)="passwordLong(password.value)" required
+                            [class.is-invalid]="passError || (password.invalid && password.touched)" [class.is-valid]="password.valid"
+                            #password="ngModel" [(ngModel)]="user.password" tabindex="2" class="form-control" placeholder="Password">
+
+                            <small class="text-danger" [class.d-none]="password.untouched || password.valid"> Veuillez remplir ce champ </small>
+                      </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-xxl-6 col-lg-12 col-md-6">
+                      <div class="form-check checkbox-style mb-30">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="checkbox-remember"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="checkbox-remember"
+                        >
+                          Remember me next time</label
+                        >
+                      </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-xxl-6 col-lg-12 col-md-6">
+                      <div
+                        class="text-start text-md-end text-lg-start text-xxl-end mb-30"
+                      >
+                        <a href="reset-password.html" class="hover-underline">
+                          Forgot Password?
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-12">
+                      <div
+                        class="button-group d-flex justify-content-center flex-wrap"
+                      >
+                        <input
+                          [disabled]="loginForm.form.invalid || emailError || passError"
+                          class = "form-control main-btn primary-btn btn-hover w-100 text-center"
+                          type="submit"
+                          value="Sign In"
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end row -->
+                </form>
+                <div class="singin-option pt-40">
+                  <p class="text-sm text-medium text-center text-gray">
+                    Easy Sign In With
+                  </p>
+                  <div
+                    class="button-group pt-40 pb-40 d-flex justify-content-center flex-wrap"
+                  >
+                    <button class="main-btn primary-btn-outline m-2">
+                      <i class="lni lni-facebook-filled mr-10"></i>
+                      Facebook
+                    </button>
+                    <button class="main-btn danger-btn-outline m-2">
+                      <i class="lni lni-google mr-10"></i>
+                      Google
+                    </button>
+                  </div>
+                  <p class="text-sm text-medium text-dark text-center">
+                    Don’t have any account yet?
+                    <a [routerLink]="['/register']">Create an account</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+    </section>
+    <!-- ========== signin-section end ========== -->
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 order-last order-md-first">
+            <div class="copyright text-center text-md-start">
+              <p class="text-sm">
+                Designed and Developed by
+                <a
+                  href="https://plainadmin.com/"
+                  rel="nofollow"
+                  target="_blank"
+                >
+                  PlainAdmin
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- end col-->
+          <div class="col-md-6">
+            <div
+              class="terms d-flex justify-content-center justify-content-md-end"
+            >
+              <a href="#0" class="text-sm">Term & Conditions</a>
+              <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </footer>
+    <!-- ========== footer end =========== -->
+  </main>
+  <!-- ======== main-wrapper end =========== -->
+
+  <!-- ============ Theme Option Start ============= -->
+
+
+
+
+</body>

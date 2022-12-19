@@ -1,0 +1,11 @@
+Input string <input type="number" [(ngModel)] ="num"/>
+
+
+<div [ngSwitch]="num">
+
+    <p  *ngSwitchCase="1">Response is 1 </p>
+    <p  *ngSwitchCase="2">Response is 2 </p>
+    <p  *ngSwitchCase="3">Response is 3 </p>
+    <p *ngSwitchDefault> Default response 0</p>
+
+</div>
